@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : Controller
 {
     public bool isMouseRotation;
+    public float sprintTime;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -32,16 +33,23 @@ public class PlayerController : Controller
         moveVector = Vector3.ClampMagnitude(moveVector, 1);
 
         //tell pawn to move
-        if (Input.GetAxis("Sprint") > 0)
+        if (Input.GetAxis("Sprint") > 0 && sprintTime > 0)
         {
             pawn.Sprint(moveVector);
             //Debug.Log("I AM SPRINTING");
+            sprintTime -= 1;
         }
         else
         {
             pawn.Move(moveVector);
             //Debug.Log("I am walking");
+            while (sprintTime < 1000 && Input.GetAxis("Sprint") <1)
+            {
+                sprintTime += 1;
+            }
         }
+
+        Debug.Log(sprintTime);
 
         if(isMouseRotation)
         {
