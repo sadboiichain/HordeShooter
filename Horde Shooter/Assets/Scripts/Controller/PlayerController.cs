@@ -49,9 +49,27 @@ public class PlayerController : Controller
             }
         }
 
-        Debug.Log(sprintTime);
+        //SHOOTING INPUTS
+        if(Input.GetButtonDown("Fire1"))
+        {
+            pawn.weapon.OnPrimaryAttackBegin.Invoke();
+        }
+        if (Input.GetButtonUp("Fire1"))
+        {
+            pawn.weapon.OnPrimaryAttackEnd.Invoke();
+        }
+        if (Input.GetButtonDown("Fire2"))
+        {
+            pawn.weapon.OnSecondaryAttackBegin.Invoke();
+        }
+        if (Input.GetButtonUp("Fire2"))
+        {
+            pawn.weapon.OnSecondaryAttackEnd.Invoke();
+        }
 
-        if(isMouseRotation)
+        //Debug.Log(sprintTime);
+
+        if (isMouseRotation)
         {
             //create the ray from mouse position in the direciotn the camera is facing
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
